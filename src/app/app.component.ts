@@ -9,13 +9,19 @@ export class AppComponent implements OnInit {
 
   ahoj: string = "Jak se máš?";
   buttonOnClick() {
-    console.log("Klik");
+    this.list.push(this.inputText);
+    this.inputText = "";
+  }
+
+  smazat(index: number) {
+    this.list.splice(index, 1);
   }
 
   inputText = "";
-
+  
+  list: string[] = ["Pepa", "Aneta", "Verča"];
 
   ngOnInit(){
-    console.log("Hello world");
+    console.log(this.list);
   }
 }
