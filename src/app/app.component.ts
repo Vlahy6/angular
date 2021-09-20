@@ -1,4 +1,5 @@
 import { Component, OnInit} from '@angular/core';
+import { ApiService } from '../service/apiService';
 
 @Component({
   selector: 'app-root',
@@ -7,10 +8,17 @@ import { Component, OnInit} from '@angular/core';
 })
 export class AppComponent implements OnInit {
 
+  constructor(public apiCats: ApiService) {
+  }
+
   ahoj: string = "Jak se máš?";
   buttonOnClick() {
-    this.list.push(this.inputText);
+    this.addToArray(this.inputText);
     this.inputText = "";
+  }
+
+  addToArray(value: string) {
+    this.list.push(value);
   }
 
   smazat(index: number) {
@@ -18,8 +26,16 @@ export class AppComponent implements OnInit {
   }
 
   inputText = "";
-  
+
   list: string[] = ["Pepa", "Aneta", "Verča"];
+
+  callCats() {
+    this.apiCats.getCats().subscribe(
+      (response: any) => {
+        this.addToArray(response["fact"]);
+      }
+    );
+  }
 
   ngOnInit(){
     console.log(this.list);
