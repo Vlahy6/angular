@@ -8,7 +8,7 @@ import { ApiService } from '../service/apiService';
 })
 export class AppComponent implements OnInit {
 
-  constructor(public apiCats: ApiService) {
+  constructor(public apiService: ApiService) {
   }
 
   ahoj: string = "Jak se máš?";
@@ -21,18 +21,35 @@ export class AppComponent implements OnInit {
     this.list.push(value);
   }
 
+  addToArray2(value: string) {
+    this.dogs.push(value);
+  }
+
   smazat(index: number) {
     this.list.splice(index, 1);
+  }
+
+  smazatpsa(index: number) {
+    this.dogs.splice(index, 1);
   }
 
   inputText = "";
 
   list: string[] = ["Pepa", "Aneta", "Verča"];
+  dogs: string[] = [];
 
   callCats() {
-    this.apiCats.getCats().subscribe(
+    this.apiService.getCats().subscribe(
       (response: any) => {
         this.addToArray(response["fact"]);
+      }
+    );
+  }
+
+  obrazek() {
+    this.apiService.getDog().subscribe(
+      (response: any) => {
+        this.addToArray2(response["message"]);
       }
     );
   }
